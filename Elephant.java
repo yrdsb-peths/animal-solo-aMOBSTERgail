@@ -14,6 +14,7 @@ public class Elephant extends Actor
      */
     public void act()
     {
+        move(1);
         if(isTouching(Apple.class))
         {
             removeTouching(null);
