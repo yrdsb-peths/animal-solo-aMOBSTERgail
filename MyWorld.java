@@ -5,15 +5,18 @@ public class MyWorld extends World {
         super(600, 400, 1);
         
         Elephant elephant = new Elephant();
-        addObject(elephant, 300, 100);
+        addObject(elephant, 300, 300);
         
-        spawnApple();
+        createApple();
     }
     
-    public void spawnApple()
+    // Create a new apple at a random location at the top of the screen
+    public void createApple()
     {
         Apple apple = new Apple();
-        addObject(apple, 300, 0);
+        int x = Greenfoot.getRandomNumber(600);
+        int y = Greenfoot.getRandomNumber(300);
+        addObject(apple, x, y);
     }
 }
 
