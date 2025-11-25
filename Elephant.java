@@ -11,8 +11,10 @@ public class Elephant extends Actor
     GreenfootSound elephantSound = new GreenfootSound("elephantcub.mp3");
     GreenfootImage[] idleRight = new GreenfootImage[8];
     GreenfootImage[] idleLeft = new GreenfootImage[8];
+    
     // Direction the elephant is facing
     String facing = "right";
+    SimpleTimer animationTimer = new SimpleTimer();
     
     // Constructor for the elephant
     public Elephant()
@@ -26,9 +28,12 @@ public class Elephant extends Actor
         for(int i = 0; i < idleLeft.length; i++)
         {
             idleLeft[i] = new GreenfootImage("images/elephantimages/elephantidle" + i + ".png");
-            idleLeft[i] = idleLeft[i].mirrorHorizontally();
+            idleLeft[i].mirrorHorizontally();
             idleLeft[i].scale(100, 100);
         }
+        
+        animationTimer.mark();
+        
         // Initialize elephant image
         setImage(idleRight[0]);
     }
@@ -37,6 +42,12 @@ public class Elephant extends Actor
     int imageIndex = 0;
     public void animateElephant()
     {
+        if(animationTimer.millisElapsed() < 100)
+        {
+            return;
+        }
+        animationTimer.mark();
+        
         if(facing.equals("right"))
         {
             setImage(idleRight[imageIndex]);
@@ -53,10 +64,12 @@ public class Elephant extends Actor
         if(Greenfoot.isKeyDown("left"))
         {
             move(-2);
+            facing = "left";
         }
         else if(Greenfoot.isKeyDown("right"))
         {
             move(2);
+            facing = "right";
         }
         // Remove apple if elephant eats it
         eat();
